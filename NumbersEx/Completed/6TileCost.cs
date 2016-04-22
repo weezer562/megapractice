@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NumbersEx
 {
-    class ProgramTileCost
+    class TileCost
     {
         static void Main(string[] args)
         {
