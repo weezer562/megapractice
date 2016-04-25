@@ -12,8 +12,8 @@ namespace NumbersEx
         {
             do
             {
+                //get user input
                 Console.Write("Enter number you wish to find all prime factors for: ");
-
                 var number = Convert.ToInt32(Console.ReadLine());
 
                 //if entered number = 1 return 1 as that is the only prime
@@ -23,22 +23,21 @@ namespace NumbersEx
                     continue;
                 }
 
-                //stores array of first 11 prime numbers
-                //int[] primeArray = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37 };
+                //stores list of prime number between 2 and "number"
                 List<int> primeList = new List<int>();
 
-                for (int i = 2; i <= number; i++)
+                for (int i = 2; i < number; i++)
                 {
-                    if(Program.isPrime(number))
+                    if(Program.isPrime(i))
                     {
-                        primeList.Add(i);
-                  
+                        var toAdd = i;
+                        primeList.Add(toAdd);
                     }
                 }
-
+                
                 List<int> factorsList = new List<int>();
               
-                //Run through primeArray list to check for primes
+                //Run through primeList to check for primes
                 for(int i=0; i<primeList.Count;i++)
                 {
                    //if prime is larger than number stop loop
@@ -46,7 +45,7 @@ namespace NumbersEx
                     {
                         break;
                     }
-                    //Save number if it divides correctly, restarts loop with modified number
+                    //Save number if modules == 0
                     if (number % primeList[i] == 0)
                     {
                         factorsList.Add(primeList[i]);
@@ -64,25 +63,25 @@ namespace NumbersEx
             } while (true);
 
         }
-
-        static bool isPrime(int number)
+        //checks if a number is a prime
+        static bool isPrime(int num)
         {
-            if (number == 2 || number == 3)
+            if (num == 2)
+            {
                 return true;
-            if(number % 2 == 0 || number%3 == 0)
+            }
+            if(num % 2 == 0)
+            {
                 return false;
-            
-            var i = 5;
-            var w = 2;
-
-            while(i * i <= number){
-                if(number % i == 0)
-                    return false;
-
-                i += w;
-                w = 6 - w;
             }
 
+            for(int i=2; i*i <= num; i += 2)
+            {
+                if(num % i == 0)
+                {
+                    return false;
+                }
+            }
 
             return true;
         }
