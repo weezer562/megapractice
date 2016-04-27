@@ -10,32 +10,35 @@ namespace NumbersEx
     {
         static void Main(string[] args)
         {
-            int startValue = 1;
+            //Prime starting point, will also store last prime number shown
+            int primeLocation = 2;
 
             do
             {
-               
-                //stores list of prime number between 2 and "number"
-                List<int> primeList = new List<int>();
-
                 //get user input
-                Console.Write("Would you like to retrieve a prime number? (y or n) ");
+                Console.Write("To Retrieve a new prime number press Enter, to Quit enter Q and press Enter: ");
                 var answer = Console.ReadLine().ToString();
 
-                //if entered number = 1 return 1 as that is the only prime
-                if (answer.ToLower() == "y")
+                //breaks out of loop if they enter q
+                if (answer.ToLower() == "q")
                 {
-                    Console.WriteLine("Thank you for using the prime return service.  Have a great day!");
                     break;
                 }
 
-                if (Program.isPrime(startValue))
+                //hitting enter will enact if statement
+                if (answer == "")
                 {
-                    Console.WriteLine(startValue);
+                    //Finds next prime number and prints it out. 
+                    do
+                    {
+                        if (Program.isPrime(primeLocation))
+                        {
+                            Console.WriteLine(primeLocation);
+                        }
+                        primeLocation++;
+                    } while (!isPrime(primeLocation));
                 }
-
-                startValue++;
-        
+               
             } while (true);
 
         }
@@ -50,7 +53,6 @@ namespace NumbersEx
             {
                 return false;
             }
-
             for(int i=2; i*i <= num; i += 2)
             {
                 if(num % i == 0)
@@ -58,7 +60,6 @@ namespace NumbersEx
                     return false;
                 }
             }
-
             return true;
         }
     }
