@@ -70,7 +70,6 @@ namespace NumbersEx
         static void decimalToBinary(int decimalNumber)
         {
             int remainder;
-            int spacecount = 1;
             int displayDecimal = decimalNumber;
             List<int> binaryList = new List<int>();
 
