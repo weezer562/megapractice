@@ -12,67 +12,98 @@ namespace NumbersEx
         {
             do
             {
-                Console.Write("How much did the item cost? ");
-                
+                Console.Write("Welcome to the Binary Convertor\n" + 
+                              "1. Binary to Decimal\n" + 
+                              "2. Decimal to Binary\n" + 
+                              "Please choose one of the options above: ");
+                int answer = Convert.ToInt16(Console.ReadLine());
+
+                string stringNumber;
+                int decimalNumber;
+
+                switch (answer)
+                {
+                    case 1:
+                        Console.Write("\nEnter your number in Binary: ");
+                        stringNumber = Console.ReadLine();
+                        binaryToDecimal(stringNumber);
+                        break;
+                    case 2:
+                        Console.Write("\nEnter your number in Decimal: ");
+                        decimalNumber = Convert.ToInt32(Console.ReadLine());
+                        decimalToBinary(decimalNumber);
+                        break;
+                    default:
+                        throw new Exception("Not a valid Option");
+                }
 
 
             } while (true);
 
         }
 
-        static void printChange(double changeDue)
+        static void binaryToDecimal(string binaryNumber)
         {
-            int zero = 0;
-            int dollarAmount = (int)changeDue;
-      
-            int cents = Convert.ToInt32((changeDue - Convert.ToDouble(dollarAmount)) * 100);
-            int totalInCents = dollarAmount * 100 + cents;
+            double decimalNumber = 0;
+            double power = 0.0;
 
-            if (totalInCents > 25)
+            //split binary number into an array
+            var binaryArray = binaryNumber.ToString().ToArray();
+            
+            //reverse array so that we can parse from 2^0 first
+            Array.Reverse(binaryArray);
+
+            //Parses char array and adds correct amount to total
+            foreach (char character in binaryArray)
             {
-                int quarters = totalInCents / 25;
-                Console.WriteLine("Quarters: {0}", quarters);
-                totalInCents = totalInCents - quarters * 25;
+                if (character == '1')
+                {
+                    decimalNumber += Math.Pow(2, power);
+                }
+
+                power++;
+            }
+
+            Console.Write("\nYour Binary Number {0} converted to Decimal is {1} \n\n",binaryNumber,decimalNumber);
+        }
+
+        static void decimalToBinary(int decimalNumber)
+        {
+            int remainder;
+            int spacecount = 1;
+            int displayDecimal = decimalNumber;
+            List<int> binaryList = new List<int>();
+
+            while (decimalNumber > 1)
+            {
+                remainder = decimalNumber % 2;
+                binaryList.Add(remainder);
+                decimalNumber = decimalNumber/2;
+            }
+
+            //adding final 1 to list, highest value of any binary number
+            if (decimalNumber != 0)
+            {
+                binaryList.Add(1);
             }
             else
             {
-                Console.WriteLine("Quarters: {0}",zero);
+                binaryList.Add(0);
             }
+           
 
-            if (totalInCents > 10)
-            {
-                int dimes = totalInCents / 10;
-                Console.WriteLine("Dimes:     {0}", dimes);
-                totalInCents = totalInCents - dimes * 10;
-            }
-            else
-            {
-                Console.WriteLine("Dimes:     {0}", zero);
-            }
+            //reversing list
+            binaryList.Reverse();
 
-            if (totalInCents > 5)
-            {
-                int nickels = totalInCents / 5;
-                Console.WriteLine("Nickels:   {0}", nickels);
-                totalInCents = totalInCents - nickels * 5;
-            }
-            else
-            {
-                Console.WriteLine("Nickels:   {0}", zero);
-            }
+            //make list into string
+            string binaryString = string.Join("",binaryList.ToArray());
 
-            if (totalInCents > 1)
-            {
-                int pennies = totalInCents / 1;
-                Console.WriteLine("Pennies:   {0}\n", pennies);
-                totalInCents = totalInCents - pennies * 1;
-            }
-            else
-            {
-                Console.WriteLine("Pennies:   {0}\n", zero);
-            }
+            //foreach(int value in binaryList)
+            //{
+            //    Console.Write(value);
+            //}
+            Console.Write("\nYour decimal number {0} is {1} in binary.\n\n", displayDecimal, binaryString);
 
-          
         }
 
     }
