@@ -31,9 +31,6 @@ namespace NumbersEx
                     case 3:
                         volumeConvert();
                         break;
-                    case 4:
-                        massConvert();
-                        break;
                     default:
                         break;
                 }
