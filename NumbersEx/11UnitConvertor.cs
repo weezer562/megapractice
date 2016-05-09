@@ -7,66 +7,50 @@ using System.Threading.Tasks;
 
 namespace NumbersEx
 {
-    class BinDecConverter
+    class AlarmClock
     {
         static void Main(string[] args)
         {
             do
             {
-                Console.Write("Welcome to the Unit Convertor\n" +
-                              "1. Temperature\n" +
-                              "2. Currency\n" +
-                              "3. Volume\n" + 
-                              "Please choose one of the options above: ");
-                int answer = Convert.ToInt16(Console.ReadLine());
+                Console.Write("The CurrentTime is: {0}\n", DateTime.Now);
+                Console.Write("1. Refresh Time\n2. Add a timer\n3. Set an Alarm\nMake a choice: ");
+                
+                int response = Convert.ToInt16(Console.ReadLine());
 
-                switch (answer)
+                switch (response)
                 {
                     case 1:
-                        temperatureConvert();
-                        break;
+                        continue;
                     case 2:
-                        currencyConvert();
+                        addTimer();
                         break;
                     case 3:
-                        volumeConvert();
+                        setAlarm();
                         break;
                     default:
-                        break;
+                        Console.WriteLine("Not a valid Option");
+                        continue;
                 }
 
             } while (true);
 
         }
-        static void temperatureConvert()
+        static void addTimer()
         {
-            Console.Write("\nChoose One:\n" +
-                "1. Celsius --> Fahrenheit\n" +
-                "2. Fahrenheit --> Celsius\n" +
-                "Input: ");
+            Console.Write("How long is your timer (in minutes): ");
+            double time = Convert.ToDouble(Console.ReadLine());
 
-            int answer = Convert.ToInt16(Console.ReadLine());
-
-            if (answer == 1)
+            for (double i = 0.0; i < time; i += .1) 
             {
-                Console.Write("Enter your Celsius amount: ");
-                double celsius = Convert.ToDouble(Console.ReadLine());
-                double fahrenheit = (celsius * 1.8) + 32;
-
-                Console.WriteLine("{0} Celsius in Fahrenheit is: {1}\n", celsius, fahrenheit);
-            }
-
-            if (answer == 2)
-            {
-                Console.Write("Enter your Fahrenheit amount: ");
-                double fahrenheit = Convert.ToDouble(Console.ReadLine());
-                double celsius = (fahrenheit - 32) / 1.8;
-
-                Console.WriteLine("{0} Fahrenheit in Celsius is: {1}\n", fahrenheit, celsius);
+                Console.WriteLine(DateTime.Now);
+                Console.WriteLine("Countdown: {0}", time);
+                System.Threading.Thread.Sleep(1000);
+                time -= .1;
             }
         }
 
-        static void currencyConvert()
+        static void setAlarm()
         {
             double usdToEuroRate = .86438;
             double euroToUsdRate = 1.1569;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NumbersEx
 {
-    class BinDecConverter
+    class Binary Converter
     {
         static void Main(string[] args)
         {

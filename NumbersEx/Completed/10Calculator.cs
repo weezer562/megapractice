@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NumbersEx
 {
-    class BinDecConverter
+    class Calculator
     {
         static void Main(string[] args)
         {
